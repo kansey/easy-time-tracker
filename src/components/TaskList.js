@@ -2,7 +2,7 @@ import '../assets/stylesheets/base.scss';
 import React, { Component, PropTypes} from 'react';
 import update from 'react/lib/update';
 import { TaskForm } from './TaskForm.js';
-import { List} from './List.js';
+import List from './List.js';
 
 export class TaskList extends React.Component {
 

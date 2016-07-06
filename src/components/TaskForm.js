@@ -1,9 +1,9 @@
 import '../assets/stylesheets/base.scss';
 import React, { Component, PropTypes} from 'react';
-import { Clock } from './Clock.js';
-import { Controls } from './Controls.js';
-import { Rate } from './Rate.js';
-import { Task } from './Task.js';
+import Clock  from './Clock.js';
+import Controls from './Controls.js';
+import  Rate  from './Rate.js';
+import  Task  from './Task.js';
 
 
 export class TaskForm extends React.Component {
