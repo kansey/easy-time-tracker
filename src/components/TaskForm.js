@@ -1,4 +1,3 @@
-import '../assets/stylesheets/base.scss';
 import React, { Component, PropTypes} from 'react';
 import Clock  from './Clock.js';
 import Controls from './Controls.js';
@@ -8,9 +7,13 @@ import  Task  from './Task.js';
 
 export class TaskForm extends React.Component {
 
+  static propTypes = {
+      onSubmit: React.PropTypes.func.isRequired,
+      clearTasks: React.PropTypes.func.isRequired
+  }
+
   constructor(props) {
       super(props);
-      this.handleSubmit = this.handleSubmit.bind(this)
       this.handleStatusChange = this.handleStatusChange.bind(this)
       this.handleRate = this.handleRate.bind(this)
       this.handleTask = this.handleTask.bind(this)
@@ -40,21 +43,21 @@ export class TaskForm extends React.Component {
                   break;
               case 'stopped':
                   this.setState({count: 0, task: '', rate: 0 });
+                  this.props.clearTasks();
+                  break;
               case 'paused':
                   clearInterval(this.timer);
-                  this.timer = undefined;
-                  this.clock = undefined;
-                  this.storage = undefined
+                  let cost = Math.floor(this.state.rate / 3600 * this.state.count);
+
+                  this.props.onSubmit({
+                      task: this.state.task,
+                      clock: this.state.clock,
+                      rate: this.state.rate,
+                      cost: cost
+                  });
                   break;
           }
       }
-  }
-
-
-  componentWillUnmount () {
-      clearInterval(this.timer)
-      clearInterval(this.clock)
-      clearInterval(this.storage)
   }
 
   startTimer () {
@@ -107,16 +110,6 @@ export class TaskForm extends React.Component {
 
   handleTask (e) { this.setState({ task: e.target.value }) }
 
-  handleSubmit() {
-    let cost = Math.floor(this.state.rate / 3600 * this.state.count)
-    this.props.onSubmit({
-        task: this.state.task,
-        clock: this.state.clock,
-        rate: this.state.rate,
-        cost: cost
-    });
-  }
-
     render () {
         var {timerStatus, rate, task, clock} = this.state
         return (
@@ -128,7 +121,6 @@ export class TaskForm extends React.Component {
                 <div className="info-panel">
                     <Rate  event={this.handleRate} rate={rate}/>
                     <Task  event={this.handleTask} task={task}/>
-                    <input type="button" className="button" onClick={this.handleSubmit} value="Сalculation"/>
                 </div>
            </div>
        );

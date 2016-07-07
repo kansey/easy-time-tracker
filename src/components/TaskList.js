@@ -1,4 +1,3 @@
-import '../assets/stylesheets/base.scss';
 import React, { Component, PropTypes} from 'react';
 import update from 'react/lib/update';
 import { TaskForm } from './TaskForm.js';
@@ -8,7 +7,8 @@ export class TaskList extends React.Component {
 
   constructor(props) {
     super(props);
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.clearTasks = this.clearTasks.bind(this);
     this.state = {
         data: []
     };
@@ -17,6 +17,8 @@ export class TaskList extends React.Component {
   handleSubmit (task) {
       this.setState({data: this.state.data.concat(task)});
   }
+
+  clearTasks () { this.setState({data: [] }) }
 
   render () {
       var i = 0;
@@ -27,7 +29,7 @@ export class TaskList extends React.Component {
       });
       return (
           <div className="tracker">
-            <TaskForm onSubmit={this.handleSubmit} />
+            <TaskForm onSubmit={this.handleSubmit} clearTasks={this.clearTasks} />
             <div className="task-manager">
                 <ul className="list">
                     {tasks}

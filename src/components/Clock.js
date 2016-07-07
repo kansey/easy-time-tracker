@@ -1,5 +1,4 @@
 import React, {Component, PropTypes} from 'react';
-import '../assets/stylesheets/base.scss';
 
 const Clock = ({clock}) => {
     return (

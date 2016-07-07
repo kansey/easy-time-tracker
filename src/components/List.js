@@ -1,4 +1,3 @@
-import '../assets/stylesheets/base.scss';
 import React, { Component, PropTypes} from 'react';
 
 const List = ({task, time, rate, cost}) => {

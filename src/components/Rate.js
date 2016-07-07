@@ -1,4 +1,3 @@
-import '../assets/stylesheets/base.scss';
 import React, { Component, PropTypes} from 'react';
 
 const Rate = ({rate, event}) => {
